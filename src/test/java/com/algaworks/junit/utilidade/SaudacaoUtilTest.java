@@ -13,4 +13,14 @@ class SaudacaoUtilTest {
         Assertions.assertEquals("Bom dia", saudacao, "comparação de saudação");
     }
 
+    @Test
+    public void deveLancarException(){
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> SaudacaoUtil.saudar(-100), "lançar exceção");
+        assertEquals("Hora inválida", illegalArgumentException.getMessage(), "Mensagem da exceção");
+    }
+
+    @Test
+    public void naoDeveLancarException(){
+        assertDoesNotThrow(() -> SaudacaoUtil.saudar(0), "Não deve lançar uma exceção");
+    }
 }
