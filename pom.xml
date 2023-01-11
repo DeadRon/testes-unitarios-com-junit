@@ -41,6 +41,14 @@
 					</archive>
 				</configuration>
 			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.22.2</version>
+			</plugin>
+			<!--
+			mvn test: comando maven que executa os testes unitários
+			mvn clean package: limpa pasta target pra gerar o jar novamente. Também executa os testes.
+			 -->
 		</plugins>
 	</build>
 
