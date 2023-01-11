@@ -23,4 +23,16 @@ class SaudacaoUtilTest {
     public void naoDeveLancarException(){
         assertDoesNotThrow(() -> SaudacaoUtil.saudar(0), "Não deve lançar uma exceção");
     }
+
+    @Test
+    public void saudarDeveRetornarBoaTarde(){
+        String saudacao = SaudacaoUtil.saudar(14);
+        assertEquals("Boa tarde", saudacao, "Comparação de saudação de boa tarde");
+    }
+
+    @Test
+    void saudarDeveRetornarBoaNoite(){
+        String saudacao = SaudacaoUtil.saudar(23);
+        assertEquals("Boa noite", saudacao, "Comparação de saudação de Boa noite");
+    }
 }
