@@ -1,5 +1,6 @@
 package com.algaworks.junit.utilidade;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
@@ -9,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SimuladorEsperaTest {
 
     @Test
+    @Disabled("não é mais aplicável") //esta anotação faz com o teste não seja executado
     public void deveEsperarEnaoDarTimeout(){
         assertTimeout(Duration.ofSeconds(1), () -> SimuladorEspera.esperar(Duration.ofSeconds(10)));
         /*assertTimeout assegura que o método testado deve ser executado em um segundo. Mesmo que o
