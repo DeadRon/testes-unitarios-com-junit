@@ -8,9 +8,15 @@ import static org.junit.jupiter.api.Assertions.*;
 class SaudacaoUtilTest {
 
     @Test
-    public void saudar(){
+    public void saudarComBomdiaApartir5h(){
         String saudacao = SaudacaoUtil.saudar(9);
         Assertions.assertEquals("Bom dia", saudacao, "comparação de saudação");
+    }
+
+    @Test
+    public void saudarComBoaNoiteAntesDas5h(){
+        String saudacao = SaudacaoUtil.saudar(4);
+        Assertions.assertEquals("Boa noite", saudacao, "comparação de saudação");
     }
 
     @Test
