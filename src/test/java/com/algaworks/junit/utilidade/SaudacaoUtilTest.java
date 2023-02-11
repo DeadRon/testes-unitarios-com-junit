@@ -1,15 +1,17 @@
 package com.algaworks.junit.utilidade;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.api.function.ThrowingSupplier;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+@DisplayName("Testes do utilitário de saudação")
 class SaudacaoUtilTest {
 
     @Test
+    @DisplayName("Deve saudar com Bom dia")
     public void saudarComBomdiaApartir5h(){
         //Arrange
         int horaValida = 9;
@@ -20,6 +22,7 @@ class SaudacaoUtilTest {
     }
 
     @Test
+    @DisplayName("Deve saudar com Boa noite")
     public void saudarComBoaNoiteAntesDas5h(){
         //Arrange
         int horaValida = 4;
@@ -30,6 +33,7 @@ class SaudacaoUtilTest {
     }
 
     @Test
+    @DisplayName("Deve lançar exceção")
     public void deveLancarException(){
         //Arrange
         int horaInvalida = -100;
@@ -41,6 +45,7 @@ class SaudacaoUtilTest {
     }
 
     @Test
+    @DisplayName("Não deve lançar exceção")
     public void naoDeveLancarException(){
         //Arrange
         int horaValida = 0;
@@ -51,6 +56,7 @@ class SaudacaoUtilTest {
     }
 
     @Test
+    @DisplayName("Deve lançar boa tarde")
     public void saudarDeveRetornarBoaTarde(){
         //Arrange
         int horaValida = 14;
@@ -61,6 +67,7 @@ class SaudacaoUtilTest {
     }
 
     @Test
+    @DisplayName("Deve saudar com Boa noite")
     void saudarDeveRetornarBoaNoite(){
         //Arrange
         int horaValida = 23;
