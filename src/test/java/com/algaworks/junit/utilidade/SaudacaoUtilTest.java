@@ -2,6 +2,8 @@ package com.algaworks.junit.utilidade;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
+import org.junit.jupiter.api.function.ThrowingSupplier;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,36 +11,62 @@ class SaudacaoUtilTest {
 
     @Test
     public void saudarComBomdiaApartir5h(){
-        String saudacao = SaudacaoUtil.saudar(9);
+        //Arrange
+        int horaValida = 9;
+        //Act
+        String saudacao = SaudacaoUtil.saudar(horaValida);
+        //Assert
         Assertions.assertEquals("Bom dia", saudacao, "comparação de saudação");
     }
 
     @Test
     public void saudarComBoaNoiteAntesDas5h(){
-        String saudacao = SaudacaoUtil.saudar(4);
+        //Arrange
+        int horaValida = 4;
+        //Act
+        String saudacao = SaudacaoUtil.saudar(horaValida);
+        //Assert
         Assertions.assertEquals("Boa noite", saudacao, "comparação de saudação");
     }
 
     @Test
     public void deveLancarException(){
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> SaudacaoUtil.saudar(-100), "lançar exceção");
-        assertEquals("Hora inválida", illegalArgumentException.getMessage(), "Mensagem da exceção");
+        //Arrange
+        int horaInvalida = -100;
+        Executable executable = () -> SaudacaoUtil.saudar(horaInvalida);
+        //Act
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, executable, "lançar exceção");
+        //Assert
+        assertEquals("Hora inválida", e.getMessage(), "Mensagem da exceção");
     }
 
     @Test
     public void naoDeveLancarException(){
-        assertDoesNotThrow(() -> SaudacaoUtil.saudar(0), "Não deve lançar uma exceção");
+        //Arrange
+        int horaValida = 0;
+        //Act
+        ThrowingSupplier<String> chamadaInvalidaDeMetodo = () -> SaudacaoUtil.saudar(horaValida);
+        //Assert
+        assertDoesNotThrow(chamadaInvalidaDeMetodo, "Não deve lançar uma exceção");
     }
 
     @Test
     public void saudarDeveRetornarBoaTarde(){
-        String saudacao = SaudacaoUtil.saudar(14);
+        //Arrange
+        int horaValida = 14;
+        //Act
+        String saudacao = SaudacaoUtil.saudar(horaValida);
+        //Assert
         assertEquals("Boa tarde", saudacao, "Comparação de saudação de boa tarde");
     }
 
     @Test
     void saudarDeveRetornarBoaNoite(){
-        String saudacao = SaudacaoUtil.saudar(23);
+        //Arrange
+        int horaValida = 23;
+        //Act
+        String saudacao = SaudacaoUtil.saudar(horaValida);
+        //Assert
         assertEquals("Boa noite", saudacao, "Comparação de saudação de Boa noite");
     }
 }
