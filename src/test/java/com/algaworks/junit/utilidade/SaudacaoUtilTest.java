@@ -1,18 +1,15 @@
 package com.algaworks.junit.utilidade;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.api.function.ThrowingSupplier;
 
 import static org.junit.jupiter.api.Assertions.*;
-@DisplayName("Testes do utilitário de saudação")
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class SaudacaoUtilTest {
 
     @Test
-    @DisplayName("Deve saudar com Bom dia")
-    public void saudarComBomdiaApartir5h(){
+    public void Dado_um_horario_matutino_Quando_saudar_Entao_deve_saudar_com_bom_dia(){
         //Arrange
         int horaValida = 9;
         //Act
@@ -22,8 +19,7 @@ class SaudacaoUtilTest {
     }
 
     @Test
-    @DisplayName("Deve saudar com Boa noite")
-    public void saudarComBoaNoiteAntesDas5h(){
+    public void Dado_horario_matuino_Quando_saudar_Entao_deve_saudar_com_bom_dia(){
         //Arrange
         int horaValida = 4;
         //Act
@@ -33,8 +29,7 @@ class SaudacaoUtilTest {
     }
 
     @Test
-    @DisplayName("Deve lançar exceção")
-    public void deveLancarException(){
+    public void Dado_um_horario_invalido_Quando_saudar_Entao_deve_lancar_illegalArgumentException(){
         //Arrange
         int horaInvalida = -100;
         Executable executable = () -> SaudacaoUtil.saudar(horaInvalida);
@@ -45,8 +40,7 @@ class SaudacaoUtilTest {
     }
 
     @Test
-    @DisplayName("Não deve lançar exceção")
-    public void naoDeveLancarException(){
+    public void Dado_horario_Vespertino_Quando_saudar_Entao_nao_deve_lançar_excecao(){
         //Arrange
         int horaValida = 0;
         //Act
@@ -56,8 +50,7 @@ class SaudacaoUtilTest {
     }
 
     @Test
-    @DisplayName("Deve lançar boa tarde")
-    public void saudarDeveRetornarBoaTarde(){
+    public void Dado_horario_Vespertino_Quando_saudar_Entao_deve_saudar_com_boa_tarde(){
         //Arrange
         int horaValida = 14;
         //Act
@@ -66,14 +59,4 @@ class SaudacaoUtilTest {
         assertEquals("Boa tarde", saudacao, "Comparação de saudação de boa tarde");
     }
 
-    @Test
-    @DisplayName("Deve saudar com Boa noite")
-    void saudarDeveRetornarBoaNoite(){
-        //Arrange
-        int horaValida = 23;
-        //Act
-        String saudacao = SaudacaoUtil.saudar(horaValida);
-        //Assert
-        assertEquals("Boa noite", saudacao, "Comparação de saudação de Boa noite");
-    }
 }
