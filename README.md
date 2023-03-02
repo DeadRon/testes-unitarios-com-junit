@@ -19,4 +19,13 @@ o que é feito no méotdo
 
 ![alt text for screen readers](/3_5_.png "Text to show on mouseover").
 
+### 3.6. Preparando o cenário de testes com @BeforeEach e @BeforeAll
+
+- **@BeforeAll**: Executa um método ANTES de TODOS os métodos de teste.
+- **@BeforeEach**: Executa um método ANTES de CADA teste.
+- **@AfterAll**: Executa um método DEPOIS de TODOS os métodos de teste.
+- **@AfterEach**: Executa um método DEPOIS de CADA teste.
+
+
+
 </div>
