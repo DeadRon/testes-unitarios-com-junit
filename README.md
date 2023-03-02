@@ -26,6 +26,11 @@ o que é feito no méotdo
 - **@AfterAll**: Executa um método DEPOIS de TODOS os métodos de teste.
 - **@AfterEach**: Executa um método DEPOIS de CADA teste.
 
+3.7. Um teste deve ter uma única asserção?
 
+- Teste com uma asserção deixa claro o que o teste está validando, se quebrar falha apenas em uma asserção.
+- Em testes com muitas asserções, caso uma falhe as demais não executam. Pode-se usar o assertAll para contornar isso,
+mas furamente tomaria mais tempo para entender o que o código de teste valida
+- Métodos também devem seguir regras de códigos limpo
 
 </div>
