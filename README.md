@@ -17,7 +17,11 @@ o que é feito no méotdo
 
 @Nested informa ao Junit que há testes unitários para serem executados na inner class, caso contrário Junit não encontraria. Resulado: 
 
+<center>
+
 ![alt text for screen readers](/3_5_.png "Text to show on mouseover").
+
+</center>
 
 ### 3.6. Preparando o cenário de testes com @BeforeEach e @BeforeAll
 
@@ -26,11 +30,37 @@ o que é feito no méotdo
 - **@AfterAll**: Executa um método DEPOIS de TODOS os métodos de teste.
 - **@AfterEach**: Executa um método DEPOIS de CADA teste.
 
-3.7. Um teste deve ter uma única asserção?
+### 3.7. Um teste deve ter uma única asserção?
 
-- Teste com uma asserção deixa claro o que o teste está validando, se quebrar falha apenas em uma asserção.
+- Teste com uma asserção deixa claro o que o teste válida, se quebrar, falha apenas uma asserção.
 - Em testes com muitas asserções, caso uma falhe as demais não executam. Pode-se usar o assertAll para contornar isso,
 mas furamente tomaria mais tempo para entender o que o código de teste valida
-- Métodos também devem seguir regras de códigos limpo
+- Métodos também devem seguir regras de código limpo
+
+### 3.8. Combinando @Nested e @BeforeEach com a nomenclatura do BDD
+
+- **Given/Dado(Vermelho)**: É declarada na classe de teste e representado por uma Inner class anotada com @Nested e @DisplayName("Nome do cenário"). Na Inner Class deve 
+ser declarado um método anotado com @BeforeEach que terá a implementação do cenário base para os testes.
+
+- **When/Quando(Verde)**: Declara-se uma Inner class dentro da Inner Class citada acima. Também deve estar com @Nested
+para o JUnit ser informado de que há testes unitários nesta classe para serem executados e @DisplyName para descrever 
+a ação a ser feita 
+
+- **Then/Então(Branco)**: é o método de teste dentro da Inner Classe mais interna citada acima. Deve estar anotada com @Test
+e @Displayname
+
+<center>
+
+![alt text for screen readers](/3_8_.png "Text to show on mouseover").
+
+</center>
+
+Resultado da execução dos testes:
+
+<center>
+
+![alt text for screen readers](/3_8_1.png "Text to show on mouseover").
+
+</center>
 
 </div>
