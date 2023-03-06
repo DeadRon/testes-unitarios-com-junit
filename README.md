@@ -64,3 +64,50 @@ Resultado da execução dos testes:
 </center>
 
 </div>
+
+### 3.9. Desafio - Implemente a lógica e testes de um carrinho de compras
+
+Escrita de cenários de teste para a Classe CarrinhoCompra utilizando nomenclatura BDD
+- Dado um carrinho de compras
+
+  - Adiciona Produto válido
+    - Quando adicionar um produto válido
+      - Então deve colocar um novo item no carrinho de compras
+      - E então quantidade total de itens deve ser aumentada em 1
+    - Quando produto válido existente ser colocado no carrinho
+      - Então deve aumentar quantidade deste produto
+  - Adiciona Produto válido existente
+    - Quando adicionar um produto válido presente no carrinho de compras
+      - Então deve aumentar a quantidade desse produto
+      - E não deve aumentar a quantidade total de itens em 1
+  - Adiciona Produto inválido
+    - Quando adicionar um produto nulo
+      - Então deve lançar IllegalArgumentException
+    - Quando adicionar um produto com quantidade menor que 1
+      - Então deve lançar IllegalArgumentException
+  - RemoveProduto    
+    - Quando não encontrar produto para ser removido
+      - Então deve lançar NoSuchElementException
+    - Quando remover produto nulo
+      - Então deve lançar IllegalArgumentException
+    - Quando remover produto válido
+      - Então deve diminuir tamanho da lista de itens no carrinho
+  - Aumentar quantidade de produtos
+    - Quando aumentar quantidade de um produto nulo
+      - Então deve lançar IllegalArgumentException
+    - Quando aumentar quantidade de um produto que não existe
+      - Então deve lançar NoSuchElementException
+    - Quando produto válido ser colocado no carrinho
+      - Então deve aumentar quantidade desse produto
+  - Diminuir quantidade
+    - Quando diminuir quantidade de um produto nulo
+      - Então deve lançar IllegalArgumentException
+    - Quando diminuir quantidade de um produto que não existe
+      - Então deve lançar NoSuchElementException
+    - Quando produto válido ser colocado no carrinho
+      - Então deve diminuir quantidade desse produto
+  - Verificar valor total de todos os itens na lista
+    - Quando verificar valor total da compra
+      - Então deve calcular a soma de todos os itens no carrinho
+  - RESULTADOS
+    - ![alt text for screen readers](/3_9.png "Text to show on mouseover")
