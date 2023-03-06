@@ -110,4 +110,4 @@ Escrita de cenários de teste para a Classe CarrinhoCompra utilizando nomenclatu
     - Quando verificar valor total da compra
       - Então deve calcular a soma de todos os itens no carrinho
   - RESULTADOS
-    - ![alt text for screen readers](/3_9.png "Text to show on mouseover")
+    - ![alt text for screen readers](/3_9_.png "Text to show on mouseover")
