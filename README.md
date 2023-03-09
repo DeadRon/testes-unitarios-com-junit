@@ -113,6 +113,8 @@ Escrita de cenários de teste para a Classe CarrinhoCompra utilizando nomenclatu
     - ![alt text for screen readers](/3_9_.png "Text to show on mouseover")
 
 
+### 4 Stub, Mock e Spy
+
 #### 4.1. Implementações falsas com Stub
 
 Stubs ou dublês são objetos falsos para simular partes de objetos reais de forma que 
@@ -143,3 +145,13 @@ foi um id, que era o minímo necessário para passar no teste.
         return editor;
     }  
     ````
+    
+#### 4.2. Introdução ao Mock
+
+- Mocks são imitações ou unidades falsas que simulam o comportamento de unidades reais.
+A diferença para um stub é que enquanto o Mock valida o **comportamento** de uma parte
+da aplicação o Stub valida apenas o **estado** de um dado para fazer um teste funcionar.
+- Vantagens:
+  - Não é necessário **implementar** uma interface ou **extender** uma **classe**.
+  - Facilidade de definir um comportamento **fictício dinâmico** em uma classe
+  - Verificar comportamento da classe com mock
