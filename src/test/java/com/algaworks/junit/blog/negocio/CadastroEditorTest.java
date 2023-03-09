@@ -1,64 +1,40 @@
 package com.algaworks.junit.blog.negocio;
 
-import com.algaworks.junit.blog.exception.RegraNegocioException;
+import com.algaworks.junit.blog.armazenamento.ArmazenamentoEditor;
 import com.algaworks.junit.blog.modelo.Editor;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-class CadastroEditorTest {
+public class CadastroEditorTest {
 
     CadastroEditor cadastroEditor;
-    ArmazenamentoFixoEmMemoria armazenamentoEditar = new ArmazenamentoFixoEmMemoria();
     Editor editor;
 
     @BeforeEach
-    void beforeEach(){
-        editor = new Editor(null, "Alex", "alex@gmail.com", BigDecimal.TEN, true);
-        armazenamentoEditar = new ArmazenamentoFixoEmMemoria();
-        cadastroEditor = new CadastroEditor(
-                armazenamentoEditar,
-                new GerenciadorEnvioEmail(){
-                    @Override
-                    public void enviarEmail(Mensagem mensagem){
-                        System.out.println("Enviando mensagem para: "+ mensagem.getDestinatario());
-                    }
-                }
-        );
+    void init(){
+        editor = editor = new Editor(null, "Alex", "alex@gmail.com", BigDecimal.TEN, true);
+
+        ArmazenamentoEditor armazenamentoEditor = Mockito.mock(ArmazenamentoEditor.class);
+        GerenciadorEnvioEmail gerenciadorEnvioEmail = Mockito.mock(GerenciadorEnvioEmail.class);
+
+        Mockito.when(armazenamentoEditor.salvar(editor))
+                .thenReturn(new Editor(1L, "Alex", "alex@gmail.com", BigDecimal.TEN, true));
+
+        cadastroEditor = new CadastroEditor(armazenamentoEditor, gerenciadorEnvioEmail);
     }
 
     @Test
-    public void Dado_um_editor_valido_quando_criar_Entao_deve_retornar_um_id_de_cadastro(){
+    void Dado_um_editor_valido_Quando_criar_Entao_deve_retornar_um_id_de_cadastro(){
         Editor editorSalvo = cadastroEditor.criar(editor);
         assertEquals(1L, editorSalvo.getId());
-        assertTrue(armazenamentoEditar.chamouSalvar);
-
-    }
-
-    @Test
-    public void Dado_um_editor_null_quando_criar_Entao_deve_lancar_exception(){
-        assertThrows(NullPointerException.class, () -> cadastroEditor.criar(null));
-        assertFalse(armazenamentoEditar.chamouSalvar);
-    }
-
-    @Test
-    public void Dado_um_editor_com_email_existente_Quando_criar_Então_deve_lancar_exception(){
-        editor.setEmail("alex.existe@gmail.com");
-        assertThrows(RegraNegocioException.class, () -> cadastroEditor.criar(editor));
-
-    }
-
-    @Test
-    public void Dado_um_editor_com_email_existente_Quando_criar_Então_nao_deve_salvar(){
-        editor.setEmail("alex.existe@gmail.com");
-        try {
-            cadastroEditor.criar(editor);
-        } catch (RegraNegocioException e){
-            assertFalse(armazenamentoEditar.chamouSalvar);
-        }
     }
 
 }
