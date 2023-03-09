@@ -155,3 +155,8 @@ da aplicação o Stub valida apenas o **estado** de um dado para fazer um teste 
   - Não é necessário **implementar** uma interface ou **extender** uma **classe**.
   - Facilidade de definir um comportamento **fictício dinâmico** em uma classe
   - Verificar comportamento da classe com mock
+
+#### 4.5. Alterando estado dos parâmetros passados no mock
+
+- com o método thenAnswer é posspivel customizar um comportamento. Através uma função lambda que recebe
+- um objeto 'invocacao' como argumento, no caso um objeto do tipo Editor 
