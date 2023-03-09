@@ -111,3 +111,35 @@ Escrita de cenários de teste para a Classe CarrinhoCompra utilizando nomenclatu
       - Então deve calcular a soma de todos os itens no carrinho
   - RESULTADOS
     - ![alt text for screen readers](/3_9_.png "Text to show on mouseover")
+
+
+#### 4.1. Implementações falsas com Stub
+
+Stubs ou dublês são objetos falsos para simular partes de objetos reais de forma que 
+implementam o minímo necessário para que o código de teste funcione. 
+- Exemplo: na classe de teste CadastroEditorTest fora feitos quatros testes:
+  - Testar cadastro de um editor: neste teste foi preciso criar um implementação de ArmazenamentoEditor para simular
+apenas o Id de editor no momento em que foi salvo. O teste "Dado_um_editor_valido_quando_criar_Entao_deve_retornar_um_id_de_cadastro"
+válida apenas o Id do objeto que foi "salvo". Foi simulado um editor salvo de forma que a única propriedade a ser retornada
+foi um id, que era o minímo necessário para passar no teste.
+  - o teste
+    ````java
+    @Test
+    public void Dado_um_editor_valido_quando_criar_Entao_deve_retornar_um_id_de_cadastro(){
+        Editor editorSalvo = cadastroEditor.criar(editor);
+        assertEquals(1L, editorSalvo.getId());
+        assertTrue(armazenamentoEditar.chamouSalvar);
+
+    }        
+    ````
+  - objeto simulado em uma implementação da interface ArmazenamentoEditor para ter a propriedade miníma necessária para executar.
+  - ````java
+    @Override
+    public Editor salvar(Editor editor) {
+        chamouSalvar = true;
+        if(editor.getId() == null){
+            editor.setId(1L);
+        }
+        return editor;
+    }  
+    ````
