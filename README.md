@@ -158,5 +158,10 @@ da aplicação o Stub valida apenas o **estado** de um dado para fazer um teste 
 
 #### 4.5. Alterando estado dos parâmetros passados no mock
 
+#### 4.6. Parâmetros dinâmicos
+
 - com o método thenAnswer é posspivel customizar um comportamento. Através uma função lambda que recebe
-- um objeto 'invocacao' como argumento, no caso um objeto do tipo Editor 
+um objeto 'invocacao' como argumento, no caso um objeto do tipo Editor 
+
+- Mockito.any: útil quando há cenários com diversos parâmetros nos métodos mockados e para cenários
+em que o valor do argumento não é importante para o teste.

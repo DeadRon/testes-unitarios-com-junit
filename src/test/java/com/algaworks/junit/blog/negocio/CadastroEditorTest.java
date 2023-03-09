@@ -35,10 +35,10 @@ public class CadastroEditorTest {
     @BeforeEach
     void init(){
         editor = new Editor(null, "Alex", "alex@gmail.com", BigDecimal.TEN, true);
-        Mockito.when(armazenamentoEditor.salvar(editor))
+        Mockito.when(armazenamentoEditor.salvar(Mockito.any(Editor.class)))
                 .thenAnswer(invocacao -> {
                     Editor editorPassado = invocacao.getArgument(0, Editor.class);
-                    editorPassado.setId(99L);
+                    editorPassado.setId(1L);
                     return editorPassado;
                 });
     }
