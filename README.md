@@ -165,3 +165,17 @@ um objeto 'invocacao' como argumento, no caso um objeto do tipo Editor
 
 - Mockito.any: útil quando há cenários com diversos parâmetros nos métodos mockados e para cenários
 em que o valor do argumento não é importante para o teste.
+
+#### 4.7. Verificando chamada de métodos com mock usando Mockito verify
+  - ````java
+    @Test
+    void Dado_um_editor_valido_Quando_criar_Entao_deve_chamar_metodo_salvar_do_armazenamento(){
+        cadastroEditor.criar(editor);
+        Mockito.verify(armazenamentoEditor, Mockito.times(1))
+                .salvar(Mockito.eq(editor));
+    }
+    ````
+  - o método verify é usada para saber se os métodos utilizados no mock foram chamados.
+  - Mockito.times(1) -> o número de vezes que o método é esperado. 
+
+#### 4.8. Forçando uma Exception com mock
