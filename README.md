@@ -181,7 +181,7 @@ em que o valor do argumento não é importante para o teste.
 #### 4.8. Forçando uma Exception com mock
 
 #### 4.9. Capturando parâmetros enviados aos mocks com Argument Captor
-- Argument Captor: permite capturar objetos passados como argumentos em métodos para válidar
+- Argument Captor: permite capturar objetos passados como argumentos em métodos de cenário de testes para válidar
 informações neles.
 - ````java
     @Test
@@ -209,3 +209,5 @@ definidas nas linhas inicias da classe de teste igual foi delclarada no método 
    @Captor
    ArgumentCaptor<Mensagem> mensagemArgumentCaptor = ArgumentCaptor.forClass(Mensagem.class);
   ````
+- Sua aplicação é útil em cenários de validação de lógica internas onde um método ao ser chamado
+faz outras chamadas de métodos durante a sua execução.
