@@ -179,3 +179,33 @@ em que o valor do argumento não é importante para o teste.
   - Mockito.times(1) -> o número de vezes que o método é esperado. 
 
 #### 4.8. Forçando uma Exception com mock
+
+#### 4.9. Capturando parâmetros enviados aos mocks com Argument Captor
+- Argument Captor: permite capturar objetos passados como argumentos em métodos para válidar
+informações neles.
+- ````java
+    @Test
+    void Dado_um_editor_valido_Quando_cadastrar_Entao_deve_enviar_email_com_destino_ao_editor(){
+        ArgumentCaptor<Mensagem> mensagemArgumentCaptor = ArgumentCaptor.forClass(Mensagem.class);
+
+        Editor editorSalvo = cadastroEditor.criar(editor);
+
+        Mockito.verify(gerenciadorEnvioEmail).enviarEmail(mensagemArgumentCaptor.capture());
+
+        Mensagem mensagem = mensagemArgumentCaptor.getValue();
+
+        assertEquals(editorSalvo.getEmail(), mensagem.getDestinatario());
+    }
+   ````
+
+- no trecho de código **Mockito.verify(gerenciadorEnvioEmail)
+.enviarEmail(mensagemArgumentCaptor.capture());**  é feita a captura do argumento que é um Tipo <Mensagem>
+definida logo no início do método. Em seguida é extraído do objeto captor o objeto mensagem
+e é feita a asserção.
+ - também é possível utilizar ArgumentCaptor via anotação. Basta declarar juntas as classes mockadas
+definidas nas linhas inicias da classe de teste igual foi delclarada no método e colocar a anotação
+**@Captor**.
+- ````java
+   @Captor
+   ArgumentCaptor<Mensagem> mensagemArgumentCaptor = ArgumentCaptor.forClass(Mensagem.class);
+  ````
