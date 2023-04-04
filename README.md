@@ -211,3 +211,31 @@ definidas nas linhas inicias da classe de teste igual foi delclarada no método 
   ````
 - Sua aplicação é útil em cenários de validação de lógica internas onde um método ao ser chamado
 faz outras chamadas de métodos durante a sua execução.
+
+#### 4.10. Espionando um objeto real com Mockito
+
+- Até agora foi possível verificar o método estático **Mockito**.***verify();*** se método de um objeto
+Mockado foram chamados.
+- Com Spy é possível verificar instâncias reais que são recebidas em métodos e 
+realizar alguma validação sobre alguma ação no corpo do método sobre a instância. Por exemplo: verificar
+se o método getEmail da instância de Editor foi chamado ao menos uma vez (Mockito.atLeast(1)).getEmail())
+- Há duas formas de usar o Spy do mockito 
+  - a primeira é úsando método estático como mostrado na linha
+    comentada no exemplo abaixo. 
+  - a segunda é declarar anotar a instância usado em todos os testes com **@Spy**. Um ponto de atenção:
+    quando **@Spy** ser usada em uma instância (que é iniciada para cada cenário de teste dentro de um método 
+    declarado com @BeforeEach) deve ser removida a instância e declarada como um atributo de classe. A **@Spy**
+    antes de cada teste já irá fazer o que o **@BeforeEach** fazia (antes de cada teste será feita novamente a
+    atribuição de valor), ou seja, será mantida a integridade da instância para cada teste.
+- ````java
+  @Spy
+  Editor editor = = new Editor(null, "Alex", "alex@gmail.com", TEN, true);
+  
+  @Test
+  void Dado_um_editor_valido_quando_cadastrar_Entao_deve_verificar_o_email(){
+      //Editor editor = Mockito.spy(editor);
+      cadastroEditor.criar(editor);
+
+      Mockito.verify(editor, Mockito.atLeast(1)).getEmail();
+  }
+````
