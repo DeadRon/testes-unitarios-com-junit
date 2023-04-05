@@ -254,3 +254,7 @@ se o método getEmail da instância de Editor foi chamado ao menos uma vez (Mock
 - Quando um cadastrado é criado, internamente é chamado o método salvar (instância de ArmazenamentoEditor)
   e o método enviarEmail (instância de GerenciadorEnvioEmail). O teste acima válida está ordem de chamadas de
   métodos.
+
+#### 4.14. Entendendo problema de mocks não utilizados
+- Em caso de um mock não utilizada, o Mockito lança uma exceção chamada de **UnnecessaryStubbingException**.
+  Para contornar isso de forma que não se repita código é indicado o uso de Inner Classe
