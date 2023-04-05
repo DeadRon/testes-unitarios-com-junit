@@ -1,6 +1,7 @@
 package com.algaworks.junit.blog.negocio;
 
 import com.algaworks.junit.blog.armazenamento.ArmazenamentoEditor;
+import com.algaworks.junit.blog.exception.RegraNegocioException;
 import com.algaworks.junit.blog.modelo.Editor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
@@ -9,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Optional;
 
 import static java.math.BigDecimal.TEN;
 import static org.junit.jupiter.api.Assertions.*;
@@ -81,10 +84,21 @@ public class CadastroEditorTest {
 
     @Test
     void Dado_um_editor_valido_quando_cadastrar_Entao_deve_verificar_o_email(){
-        //Editor editor = Mockito.spy(editor);
+        //editor = Mockito.spy(editor);
         cadastroEditor.criar(editor);
 
         Mockito.verify(editor, Mockito.atLeast(1)).getEmail();
+    }
+
+    @Test
+    void Dado_um_editor_valido_quando_cadastrar_Entao_deve_lancar_exception(){
+        Mockito.when(armazenamentoEditor.encontrarPorEmail("alex@gmail.com"))
+                .thenReturn(Optional.empty())
+                .thenReturn(Optional.of(editor));
+
+        Editor editorComEmailExistente = new Editor(null, "Alex", "alex@gmail.com", TEN, true);
+        cadastroEditor.criar(editor);
+        assertThrows(RegraNegocioException.class, () -> cadastroEditor.criar(editorComEmailExistente));
     }
 
 }
