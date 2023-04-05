@@ -238,4 +238,19 @@ se o método getEmail da instância de Editor foi chamado ao menos uma vez (Mock
 
       Mockito.verify(editor, Mockito.atLeast(1)).getEmail();
   }
-````
+  ````
+
+#### 4.12. Verificando ordem de chamada de métodos
+- Para verificar a ordem esperadas de chamadas dos métodos em um Mock é usado a classe InOrder:
+- ````java
+    @Test
+    void Dado_um_editor_valido_quando_cadastrar_Entao_deve_enviar_email_apos_salvar(){
+        cadastroEditor.criar(editor);
+        InOrder inOrder = inOrder(armazenamentoEditor, gerenciadorEnvioEmail);
+        inOrder.verify(armazenamentoEditor, times(1)).salvar(editor);
+        inOrder.verify(gerenciadorEnvioEmail, times(1)).enviarEmail(any(Mensagem.class));
+    }
+  ````
+- Quando um cadastrado é criado, internamente é chamado o método salvar (instância de ArmazenamentoEditor)
+  e o método enviarEmail (instância de GerenciadorEnvioEmail). O teste acima válida está ordem de chamadas de
+  métodos.

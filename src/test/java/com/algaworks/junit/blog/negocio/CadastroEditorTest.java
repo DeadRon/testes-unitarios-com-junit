@@ -15,6 +15,9 @@ import java.util.Optional;
 
 import static java.math.BigDecimal.TEN;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.times;
 
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -38,7 +41,7 @@ public class CadastroEditorTest {
 
     @BeforeEach
     void init(){
-        Mockito.when(armazenamentoEditor.salvar(Mockito.any(Editor.class)))
+        Mockito.when(armazenamentoEditor.salvar(any(Editor.class)))
                 .thenAnswer(invocacao -> {
                     Editor editorPassado = invocacao.getArgument(0, Editor.class);
                     editorPassado.setId(1L);
@@ -55,7 +58,7 @@ public class CadastroEditorTest {
     @Test
     void Dado_um_editor_valido_Quando_criar_Entao_deve_chamar_metodo_salvar_do_armazenamento(){
         cadastroEditor.criar(editor);
-        Mockito.verify(armazenamentoEditor, Mockito.times(1))
+        Mockito.verify(armazenamentoEditor, times(1))
                 .salvar(Mockito.eq(editor));
     }
 
@@ -65,7 +68,7 @@ public class CadastroEditorTest {
                 .thenThrow(new RuntimeException());
         assertAll("Não deve enviar e-mail, quando lançar exception do armazenamento",
                 () -> assertThrows(RuntimeException.class, () -> cadastroEditor.criar(editor)),
-                () -> Mockito.verify(gerenciadorEnvioEmail, Mockito.never()).enviarEmail(Mockito.any())
+                () -> Mockito.verify(gerenciadorEnvioEmail, Mockito.never()).enviarEmail(any())
         );
     }
 
@@ -99,6 +102,14 @@ public class CadastroEditorTest {
         Editor editorComEmailExistente = new Editor(null, "Alex", "alex@gmail.com", TEN, true);
         cadastroEditor.criar(editor);
         assertThrows(RegraNegocioException.class, () -> cadastroEditor.criar(editorComEmailExistente));
+    }
+
+    @Test
+    void Dado_um_editor_valido_quando_cadastrar_Entao_deve_enviar_email_apos_salvar(){
+        cadastroEditor.criar(editor);
+        InOrder inOrder = inOrder(armazenamentoEditor, gerenciadorEnvioEmail);
+        inOrder.verify(armazenamentoEditor, times(1)).salvar(editor);
+        inOrder.verify(gerenciadorEnvioEmail, times(1)).enviarEmail(any(Mensagem.class));
     }
 
 }
