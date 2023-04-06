@@ -258,3 +258,21 @@ se o método getEmail da instância de Editor foi chamado ao menos uma vez (Mock
 #### 4.14. Entendendo problema de mocks não utilizados
 - Em caso de um mock não utilizada, o Mockito lança uma exceção chamada de **UnnecessaryStubbingException**.
   Para contornar isso de forma que não se repita código é indicado o uso de Inner Classe
+
+#### 4.15. Implementando testes no CadastroEditor no método de edição
+
+- O que o método faz em uma visão com DDD?
+  - Dado um editor
+    - Quando atualizar **com novo e-mail** e **Id diferente**
+      - Então deve salvar editor
+    - Quando atualizar **com mesmo e-mail** e **Id diferente** 
+      - Então deve lançar RegraNegocioException com mensagem: **"Já existe um editor com esse e-mail " + email existente**
+    - Quando atualizar com mesmo id existente
+      - Então deve atualizar
+    - Quando atualizar com mesmo id que não existe
+      - Então deve lançar EditorNaoEncontradoException
+  - Dado um editor nulo
+    - Quando validar editor
+      - Entao deve lançar NullPointerException
+    - Quando atualizar editor
+      - Entao deve lançar NullPointerException 
