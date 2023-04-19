@@ -276,3 +276,18 @@ se o método getEmail da instância de Editor foi chamado ao menos uma vez (Mock
       - Entao deve lançar NullPointerException
     - Quando atualizar editor
       - Entao deve lançar NullPointerException 
+
+#### 4.16. Desafio - Criar testes do CadastroPost
+- Cenários de Criação de Post
+  - Dado um Post
+    - Quando este post ser criado com author Premium
+      - Então deve criar post
+      - E armazenaR
+      - E enviar sinal notificação
+    - Quando este post ser removido
+      - Entao deve remover post
+      
+
+- **LEMBRETE**: o método da classe testada não deve ser chamado antes dos métoodos das configurações de Mock das dependências
+  porque o Mockito não sabe qual comportamento deve ser usado para objetos mockados. When() e Then() configuram
+  o compotarmento dos mocks.
