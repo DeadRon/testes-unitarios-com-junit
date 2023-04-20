@@ -127,17 +127,20 @@ public class CadastroEditorTest {
     class EdicaoComEditorValido{
 
         @Spy
-        Editor editor = umEditorNovo();
+        Editor editor = umEditorNovo().build();
 
         @BeforeEach
         void init(){
-            Mockito.when(armazenamentoEditor.salvar(editor)).thenAnswer(i -> i.getArgument(0, Editor.class));
-            Mockito.when(armazenamentoEditor.encontrarPorId(1L)).thenReturn(of(editor));
+            when(armazenamentoEditor.salvar(editor)).thenAnswer(i -> i.getArgument(0, Editor.class));
+            when(armazenamentoEditor.encontrarPorId(1L)).thenReturn(of(editor));
         }
 
         @Test
         void Dado_um_editor_valido_Quando_editar_Entao_deve_alterara_editor_salvo(){
-            Editor editorAtualizado = umEditorExistente();
+            Editor editorAtualizado = umEditorExistente()
+                    .comEmail("alex.silva@gmail.com")
+                    .comNome("Alex Silva")
+                    .build();
 
             cadastroEditor.editar(editorAtualizado);
             verify(editor, times(1)).atualizarComDados(editorAtualizado);
@@ -153,7 +156,7 @@ public class CadastroEditorTest {
     class EdicaoComEditorInexistente{
 
         @Spy
-        Editor editor = umEditorComIdInexistente();
+        Editor editor = umEditorComIdInexistente().build();
 
         @BeforeEach
         void init(){

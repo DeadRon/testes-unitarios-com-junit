@@ -10,16 +10,30 @@ public class EditorTestData {
 
     }
 
-    public static Editor umEditorNovo(){
-        return new Editor(null, "Alex", "alex@gmail.com", TEN, true);
+    public static Editor.Builder umEditorNovo(){
+        return Editor.builder()
+                .comNome("Alex")
+                .comEmail("alex@gmail.com")
+                .comvalorPagoPorPalavra(TEN)
+                .comPremium(true);
     }
 
-    public static Editor umEditorExistente(){
-        return new Editor(1L, "Alex", "alex@gmail.com", TEN, true);
+    public static Editor.Builder umEditorExistente(){
+        return umEditorNovo()
+                .comId(1L)
+                .comNome("Alex")
+                .comEmail("alex@gmail.com")
+                .comvalorPagoPorPalavra(TEN)
+                .comPremium(true);
     }
 
-    public static Editor umEditorComIdInexistente(){
-        return new Editor(99L, "Alex", "alex@gmail.com", TEN, true);
+    public static Editor.Builder umEditorComIdInexistente(){
+        return umEditorNovo()
+                .comId(99L)
+                .comNome("Alex")
+                .comEmail("alex@gmail.com")
+                .comvalorPagoPorPalavra(TEN)
+                .comPremium(true);
     }
 
 }
