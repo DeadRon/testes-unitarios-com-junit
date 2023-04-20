@@ -9,9 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.math.BigDecimal;
-import java.util.Optional;
-
+import static com.algaworks.junit.blog.negocio.EditorTestData.*;
 import static java.math.BigDecimal.TEN;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
@@ -129,7 +127,7 @@ public class CadastroEditorTest {
     class EdicaoComEditorValido{
 
         @Spy
-        Editor editor = new Editor(null, "Alex", "alex@gmail.com", TEN, true);
+        Editor editor = umEditorNovo();
 
         @BeforeEach
         void init(){
@@ -139,7 +137,7 @@ public class CadastroEditorTest {
 
         @Test
         void Dado_um_editor_valido_Quando_editar_Entao_deve_alterara_editor_salvo(){
-            Editor editorAtualizado = new Editor(1L, "Alex Silva", "alex.silva@gmail.com", TEN, false);
+            Editor editorAtualizado = umEditorExistente();
 
             cadastroEditor.editar(editorAtualizado);
             verify(editor, times(1)).atualizarComDados(editorAtualizado);
@@ -155,7 +153,7 @@ public class CadastroEditorTest {
     class EdicaoComEditorInexistente{
 
         @Spy
-        Editor editor = new Editor(null, "Alex", "alex@gmail.com", TEN, true);
+        Editor editor = umEditorComIdInexistente();
 
         @BeforeEach
         void init(){
@@ -165,7 +163,6 @@ public class CadastroEditorTest {
         @Test
         void Dado_um_editor_valido_Quando_editar_Entao_deve_alterara_editor_salvo(){
             assertThrows(EditorNaoEncontradoException.class, () -> cadastroEditor.editar(editor));
-
             verify(armazenamentoEditor, never()).salvar(any(Editor.class));
         }
 
