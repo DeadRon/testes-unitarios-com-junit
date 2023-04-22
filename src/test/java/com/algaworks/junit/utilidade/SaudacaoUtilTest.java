@@ -17,7 +17,12 @@ class SaudacaoUtilTest {
         //Act
         String saudacao = SaudacaoUtil.saudar(horaValida);
         //Assert
-        Assertions.assertEquals("Bom dia", saudacao, "comparação de saudação");
+        //Assertions.assertEquals("Bom dia", saudacao, "comparação de saudação");
+        org.assertj.core.api.Assertions.assertThat(saudacao)
+                //.withFailMessage("Saudação incorreta")
+                .isNotNull()
+                .isNotBlank()
+                .isEqualTo("Bom dia");
     }
 
     @Test
