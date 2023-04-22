@@ -64,7 +64,7 @@ public class CadastroPostTest {
             @DisplayName("Entao post deve ser salvo")
             public void cadastraPost(){
                 when(calculadoraGanhos.calcular(post)).thenReturn(ganhos);
-                when(armazenamentoPost.salvar(post)).thenReturn(postSalvo());
+                when(armazenamentoPost.salvar(post)).thenReturn(CadastroPostTestData.postSalvo().build());
                 Post postCriado = cadastroPost.criar(post);
 
                 verify(calculadoraGanhos, times(1)).calcular(post);
@@ -87,7 +87,7 @@ public class CadastroPostTest {
             @Test
             @DisplayName("Entao post deve ser removido")
             public void RemovePost(){
-                Post post = postSalvo();
+                Post post = CadastroPostTestData.postSalvo().id(2L).build();
                 post.setPago(false);
                 post.setPublicado(false);
 
@@ -125,7 +125,7 @@ public class CadastroPostTest {
             @Test
             @DisplayName("Entao post deve lancar RegraNegocioException")
             public void NaoRemovePostPublicado(){
-                var post = postSalvo();
+                var post = CadastroPostTestData.postPublicadoENaoPago().id(2L).build();
                 when(armazenamentoPost.encontrarPorId(2L)).thenReturn(of(post));
 
                 RegraNegocioException regraNegocioException = assertThrows(RegraNegocioException.class, () -> cadastroPost.remover(2L));
@@ -145,8 +145,8 @@ public class CadastroPostTest {
             @Test
             @DisplayName("Entao post deve lancar RegraNegocioException")
             public void NaoRemovePostPublicado(){
-                var post = postSalvo();
-                post.setPublicado(false);
+                var post = CadastroPostTestData.postPagoENaoPublicado().id(2L).build();
+                //post.setPublicado(false);
                 when(armazenamentoPost.encontrarPorId(2L)).thenReturn(of(post));
 
                 RegraNegocioException regraNegocioException = assertThrows(RegraNegocioException.class, () -> cadastroPost.remover(2L));
@@ -166,7 +166,8 @@ public class CadastroPostTest {
             @Test
             @DisplayName("Entao post deve lancar PostNaoEncontradoException")
             public void DeveEditarPost(){
-                post.setId(200L);
+
+                post = CadastroPostTestData.postInexistente().id(200L).build();
 
                 when(armazenamentoPost.encontrarPorId(post.getId())).thenReturn(Optional.empty());
 
@@ -181,14 +182,13 @@ public class CadastroPostTest {
         }
 
         @Nested
-        @DisplayName("Quando editar um post pago")
+        @DisplayName("Quando editar um post nao pago")
         class EditarPostPago{
 
             @Test
-            @DisplayName("Entao post deve editar")
+            @DisplayName("Entao post deve editar com calculo de ganhos")
             public void DeveEditarPost(){
-                post.setId(1L);
-                post.setPago(false);
+                post = CadastroPostTestData.postNaoPagoENaoPublicado().id(1l).pago(false).build();
 
                 when(armazenamentoPost.encontrarPorId(post.getId())).thenReturn(of(post));
                 cadastroPost.editar(post);
@@ -202,14 +202,13 @@ public class CadastroPostTest {
         }
 
         @Nested
-        @DisplayName("Quando editar um post não pago")
+        @DisplayName("Quando editar um post pago")
         class EditarPostNaoPago{
 
             @Test
             @DisplayName("Entao post não deve editar com calculo de ganhos")
             public void NaoDeveEditarPost(){
-                post.setId(1L);
-                post.setPago(true);
+                post = CadastroPostTestData.postNaoPagoENaoPublicado().id(1L).pago(true).build();
 
                 when(armazenamentoPost.encontrarPorId(post.getId())).thenReturn(of(post));
                 cadastroPost.editar(post);

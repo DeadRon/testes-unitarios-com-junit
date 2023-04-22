@@ -50,4 +50,35 @@ public class Ganhos {
     public int hashCode() {
         return Objects.hash(valorPagoPorPalavra, quantidadePalavras, totalGanho);
     }
+
+    public static Builder builder(){
+        return new Builder();
+    }
+
+    public final static class Builder{
+
+        private BigDecimal valorPagoPorPalavra;
+        private int quantidadePalavras;
+        private BigDecimal totalGanho;
+
+        public Builder valorPagoPorPalavra(BigDecimal valorPagoPorPalavra){
+            this.valorPagoPorPalavra = valorPagoPorPalavra;
+            return this;
+        }
+
+        public Builder quantidadePalavras(int quantidadePalavras){
+            this.quantidadePalavras = quantidadePalavras;
+            return this;
+        }
+
+        public Builder totalGanho(BigDecimal totalGanho){
+            this.totalGanho = totalGanho;
+            return this;
+        }
+
+        public Ganhos build(){
+            return new Ganhos(valorPagoPorPalavra, quantidadePalavras, totalGanho);
+        }
+
+    }
 }
