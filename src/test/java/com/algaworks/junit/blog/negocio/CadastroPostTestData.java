@@ -33,6 +33,7 @@ public class CadastroPostTestData {
                 .autor(editor().build())
                 .slug("algo")
                 .ganhos(ganhos().build())
+                .pago(true)
                 .publicado(true);
     }
 

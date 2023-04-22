@@ -47,9 +47,9 @@ public class CadastroPostTest {
 
     @BeforeEach
     void init(){
-        ganhos = new Ganhos(BigDecimal.ONE, 2000, valueOf(2000));
-        autor = new Editor("Ronaldo", "ronaldo@gmail.com", valueOf(2000), false);
-        post = new Post(null, "Algo sobre a vida", "Reflexões", autor, "algo", ganhos, true, true);
+        ganhos = CadastroPostTestData.ganhos().build();
+        autor = CadastroPostTestData.editor().build();
+        post = CadastroPostTestData.post().build();
     }
 
     @Nested
