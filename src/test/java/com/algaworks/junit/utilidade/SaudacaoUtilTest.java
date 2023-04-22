@@ -1,11 +1,13 @@
 package com.algaworks.junit.utilidade;
 
+import org.assertj.core.api.Condition;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.api.function.ThrowingSupplier;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import static com.algaworks.junit.utilidade.SaudacaoUtilConditions.igualBomDia;
 import static org.junit.jupiter.api.Assertions.*;
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class SaudacaoUtilTest {
@@ -35,6 +37,13 @@ class SaudacaoUtilTest {
                 .as("Validando se a saudação é %s", saudacaoCorreta)
                 .withFailMessage("Erro: Saudação incorreta! Resulta: %s", saudacao)
                 .isEqualTo(saudacaoCorreta);
+    }
+
+    @Test
+    public void Dado_um_horario_matutino_Quando_saudar_Entao_deve_saudar_com_bom_dia_com_AssertJ_2(){
+        int horaValida = 9;
+        String saudacao = SaudacaoUtil.saudar(horaValida);
+        org.assertj.core.api.Assertions.assertThat(saudacao).is(igualBomDia());
     }
 
     @Test
