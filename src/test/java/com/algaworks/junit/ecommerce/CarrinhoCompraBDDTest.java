@@ -20,6 +20,8 @@ class CarrinhoCompraBDDTest {
         private final Cliente cliente = new Cliente(1L, "Ronaldo");
         private final CarrinhoCompra carrinhoCompra = new CarrinhoCompra(cliente, new ArrayList<>());
         private Produto produto;
+
+        private Produto tablet;
         private Produto produtoExistenteEmCarroDeCompras;
         private int quantidadeDeUmProutoExistente;
 
@@ -59,6 +61,19 @@ class CarrinhoCompraBDDTest {
             void deveAdicionarProdutoValido(){
                 carrinhoCompra.adicionarProduto(produto, 1);
                 assertEquals(6, carrinhoCompra.getItens().size());
+            }
+
+            @Test
+            @DisplayName("Então Deve Conter Apenas Produtos Adicionados")
+            void entaoDeveConterApenasProdutosAdicionados(){
+
+                tablet = new Produto(10L, "Tablet", "O Tablet dos seus sonhos", valueOf(3500));
+
+                carrinhoCompra.adicionarProduto(produto, 1);
+
+                org.assertj.core.api.Assertions.assertThat(carrinhoCompra.getItens()).flatMap(ItemCarrinhoCompra::getProduto)
+                        .contains(produto)
+                        .doesNotContain(tablet);
             }
 
             @Test
