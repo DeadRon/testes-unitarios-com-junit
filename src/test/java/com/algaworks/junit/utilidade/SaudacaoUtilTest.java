@@ -3,6 +3,8 @@ package com.algaworks.junit.utilidade;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.api.function.ThrowingSupplier;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -57,6 +59,13 @@ class SaudacaoUtilTest {
         String saudacao = SaudacaoUtil.saudar(horaValida);
         //Assert
         assertEquals("Boa tarde", saudacao, "Comparação de saudação de boa tarde");
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {5, 6, 7, 8, 9, 10, 11})
+    public void Dado_horario_matinal_Quando_saudar_Entao_deve_retornar_bom_dia(int hora){
+        String saudacao = SaudacaoUtil.saudar(hora);
+        Assertions.assertEquals("Bom dia", saudacao, "comparação de saudação");
     }
 
 }
