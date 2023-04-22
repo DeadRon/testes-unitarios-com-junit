@@ -26,6 +26,18 @@ class SaudacaoUtilTest {
     }
 
     @Test
+    public void Dado_um_horario_matutino_Quando_saudar_Entao_deve_saudar_com_bom_dia_com_AssertJ(){
+        int horaValida = 9;
+        String saudacao = SaudacaoUtil.saudar(horaValida).toUpperCase();
+        String saudacaoCorreta = "Bom dia";
+
+        org.assertj.core.api.Assertions.assertThat(saudacao)
+                .as("Validando se a saudação é %s", saudacaoCorreta)
+                .withFailMessage("Erro: Saudação incorreta! Resulta: %s", saudacao)
+                .isEqualTo(saudacaoCorreta);
+    }
+
+    @Test
     public void Dado_horario_matuino_Quando_saudar_Entao_deve_saudar_com_bom_dia(){
         //Arrange
         int horaValida = 4;
@@ -39,11 +51,18 @@ class SaudacaoUtilTest {
     public void Dado_um_horario_invalido_Quando_saudar_Entao_deve_lancar_illegalArgumentException(){
         //Arrange
         int horaInvalida = -100;
-        Executable executable = () -> SaudacaoUtil.saudar(horaInvalida);
+        //Executable executable = () -> SaudacaoUtil.saudar(horaInvalida);
         //Act
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, executable, "lançar exceção");
+        //IllegalArgumentException e = assertThrows(IllegalArgumentException.class, executable, "lançar exceção");
         //Assert
-        assertEquals("Hora inválida", e.getMessage(), "Mensagem da exceção");
+        //assertEquals("Hora inválida", e.getMessage(), "Mensagem da exceção");
+
+        //IllegalArgumentException e = org.assertj.core.api.Assertions.catchThrowableOfType(() -> SaudacaoUtil.saudar(horaInvalida), IllegalArgumentException.class);
+        ///org.assertj.core.api.Assertions.assertThat(e).hasMessage("Hora inválida");
+        org.assertj.core.api.Assertions.assertThatThrownBy(() -> SaudacaoUtil.saudar(horaInvalida))
+                //.hasRootCause(new IllegalArgumentException())
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Hora inválida");
     }
 
     @Test
