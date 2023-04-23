@@ -291,3 +291,33 @@ se o método getEmail da instância de Editor foi chamado ao menos uma vez (Mock
 - **LEMBRETE**: o método da classe testada não deve ser chamado antes dos métoodos das configurações de Mock das dependências
   porque o Mockito não sabe qual comportamento deve ser usado para objetos mockados. When() e Then() configuram
   o compotarmento dos mocks.
+
+#### 5.1. Eliminando repetições de código com o Design Pattern Object Mother
+#### Design Pattern Object Mother
+- Consiste em aplicar o padrão de projeto factory que aqui centralizada a criação de objetos
+um único ponto. Em cenário de testes é comum utilizar diferentes instâncias de uma classe
+para vários cenários de testes. Da forma como eu fazia, utilizava a criação de vários
+objetos de testes em diferntes cenários para validação. Dessa forma muito código repetido fica pelo código
+na classe de escrita dos testes e tira acrescenta na classe de testes mais uma responsabilidade (criar objetos).
+- O Factory Method encapsula a lógica de criação de objetos através de uma interface que ao usuária
+esconde a implementação e ao mesmo tempo disponibiza para este usuário diferentes métodos de criação de obejtos
+para os testes abstraindo detalhes de criação do usuário.
+- Seu uso também permite a separação de responsabilidades, pois com seu uso a criação de objetos
+para os cenários de testes saem da classe de testes e ficam nele. Isso aumenta flexibilidade,
+escalabilidade e manutenção do sistema e ajuda em uma futura adição de novos objetos sem afetar
+a classe que faz uso do Factory Method.
+- ***Design Pattern Object Mother*** é uma implmentação do Design Pattern Factory Method para
+fornece váriados objetos de uma oui mais instâncias de objetos usados nos testes.
+
+#### Design Pattern Builder
+- Simplifica a criação de objetos complexos abstraindo a construção do objeto através de 
+chamadas encadeados de métodos. Seu uso permite que objetos sejam criado de acordo com
+necessidade de uso de seus atributos. No contexto de cenário de testes o Builder se torna
+útil pois a forma de criação de objetos (para diferentes cenários) se torna fluída e isso
+permite criar código legível.
+
+#### Builder + Object Mother
+= consiste em criar os diversos métodos que atendem aos diferentes na classe que cliente
+de Objetc Mother mas em sua implementação os retornos sempre devem ser um tipo Builder da
+classe, pois internamente a classe consegui reaproveitar o retorno de cada método. Isso
+diminui a escrita de código e elimina repetições.
